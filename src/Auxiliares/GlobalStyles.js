@@ -29,7 +29,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-	font-family: 'Roboto' !important;
+	font-family: 'Lexend Deca' !important;
 }
 ol, ul {
 	list-style: none;
