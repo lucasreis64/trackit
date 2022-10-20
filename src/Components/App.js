@@ -1,5 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import GlobalStyle from "../Auxiliares/GlobalStyles";
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import GlobalStyle from "../Auxiliares/GlobalStyles"
+import Habitos from "./Habitos/Habitos"
+import Hoje from "./Hoje/Hoje"
+import Login from "./Login/Login"
+import Cadastro from "./Cadastro/Cadastro"
+import Historico from "./Historico/Historico"
 
 function App() {
   return (
