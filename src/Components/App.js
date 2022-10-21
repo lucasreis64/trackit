@@ -6,11 +6,17 @@ import Hoje from "./Hoje/Hoje";
 import Login from "./Login/Login";
 import Cadastro from "./Cadastro/Cadastro";
 import Historico from "./Historico/Historico";
+import Footer from "./Footer/Footer";
+import Header from "../Header/Header";
+
 
 function App() {
     return (
         <Screen>
+            
             <GlobalStyle />
+            <Footer/>
+            <Header/>
             <SmartPhoneContainer>
                 <BrowserRouter>
                     <Routes>
