@@ -25,9 +25,9 @@ export default function Footer() {
 };
 
 const FooterContainer=styled.div`
-    position: fixed;
+    position: absolute;
     bottom:0;
-    left:0;
+    left: 0;
     width: 100%;
     height: 70px;
     display: flex;
@@ -35,7 +35,7 @@ const FooterContainer=styled.div`
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
-    border-top: 1px solid black;//só por enquanto
+    background-color: white;
     p{
         color: #52B6FF;
         font-size: 18px;

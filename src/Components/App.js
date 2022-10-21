@@ -15,9 +15,10 @@ function App() {
         <Screen>
             
             <GlobalStyle />
+            
+            <SmartPhoneContainer>
             <Footer/>
             <Header/>
-            <SmartPhoneContainer>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Login />} />
@@ -43,8 +44,10 @@ const SmartPhoneContainer = styled.div`
     width: 350px;
     height: 100vh;
     background-color: white;
+    position: relative;
+    padding: 70px 0;
     @media (max-width: 600px) {
-      width: 100%;
+        width: 100%;
     }
 `
 

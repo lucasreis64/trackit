@@ -10,7 +10,7 @@ export default function Historico() {
     useEffect(()=>{
         setVisibilidade(true)
         navigate('/habitos')
-    })
+    },[])
     return (
         <HistoricoContainer>
 
@@ -19,4 +19,6 @@ export default function Historico() {
 }
 
 const HistoricoContainer=styled.div`
+    height: 100%;
+    background-color: #E5E5E5;
 `

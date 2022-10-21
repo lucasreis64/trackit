@@ -10,7 +10,7 @@ export default function Hoje() {
     useEffect(()=>{
         setVisibilidade(true)
         navigate('/habitos')
-    })
+    },[])
 
     return (
         <HojeContainer>
@@ -21,4 +21,5 @@ export default function Hoje() {
 
 const HojeContainer=styled.div`
     background: #E5E5E5;
+    height: 100%;
 `
