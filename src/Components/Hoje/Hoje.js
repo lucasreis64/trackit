@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"

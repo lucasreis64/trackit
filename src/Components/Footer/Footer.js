@@ -25,10 +25,9 @@ export default function Footer() {
 };
 
 const FooterContainer=styled.div`
-    position: absolute;
+    position: fixed;
     bottom:0;
-    left: 0;
-    width: 100%;
+    width: inherit;
     height: 70px;
     display: flex;
     justify-content: space-between;
@@ -36,6 +35,7 @@ const FooterContainer=styled.div`
     padding: 20px;
     box-sizing: border-box;
     background-color: white;
+    z-index: 1;
     p{
         color: #52B6FF;
         font-size: 18px;

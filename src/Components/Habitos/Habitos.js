@@ -1,29 +1,44 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { urlHabitos } from "../../Auxiliares/constants"
 import { contexto } from "../../Context/Context"
 import CardHabito from "./CardHabito"
+import NovoHabito from "./NovoHabito"
 
 export default function Habitos () {
-       const {setVisibilidade, userInfo}=useContext(contexto)
+       const {setVisibilidade, userInfo, setUserInfo}=useContext(contexto)
        const [habitos, setHabitos] = useState('')
+       const [addHabito, setAddHabito] = useState(false)
+       const navigate=useNavigate()
        useEffect(()=>{
               setVisibilidade(true)
+              
+              if(JSON.stringify(userInfo)==="{}"){
+                     navigate("/")
+              }
               const listaHabitos = axios.get(urlHabitos, {
                      headers: {
                             'Authorization': `Bearer ${userInfo.token}`
                      }}
               )
               listaHabitos.then((response)=>setHabitos(response.data))
+              listaHabitos.catch((response=>console.log('deu ruim')))
        },[])
-       console.log(habitos)
+
+       function novoHabito(){
+              setAddHabito(true)
+       }
+
        return(
               <HabitosContainer>
-                     <div><h1>Meus hábitos</h1><button>+</button></div>
-                     <div class="container-cards">
-                            {!habitos?
-                                   <CardHabito habitos={habitos}/>
+                     <div><h1>Meus hábitos</h1><button onClick={novoHabito}>+</button></div>
+                     {addHabito?<NovoHabito setAddHabito={setAddHabito} habitos={habitos}/>:<></>}
+                     <div className="container-cards">
+                            {habitos?
+                                   habitos.map((h)=><CardHabito key={h.id} habitos={h}/>)
                                    :
                                    <></>
                             }
@@ -34,8 +49,9 @@ export default function Habitos () {
 
 const HabitosContainer=styled.div`
        background: #E5E5E5;
-       height: 100%;
+       height: 100vh;
        padding: 20px 15px;
+       overflow: hidden;
        div{
               display: flex;
               justify-content: space-between;
@@ -60,3 +76,19 @@ const HabitosContainer=styled.div`
               gap: 7px;
        }
 `
+
+/* useEffect(()=>{
+       setVisibilidade(true)
+
+       const listaHabitos = axios.post(urlHabitos, {
+              name: "Nome do hábito",
+              days: [1, 3, 5]
+       }, 
+       {
+              headers: {
+                     'Authorization': `Bearer ${userInfo.token}`
+              }
+       })
+       listaHabitos.then((response)=>console.log('ok'))
+       listaHabitos.catch((response=>console.log(response)))
+},[]) */

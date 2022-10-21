@@ -1,18 +1,18 @@
 import styled from "styled-components"
-import lixeira from "../../img/lixeira.png"
+import { dias, lixeira } from "../../Auxiliares/constants"
+
 
 export default function CardHabito({habitos}) {
-    const dias=['D','S','T','Q','Q','S','S']
     return (
         <CardHabitoDiv>
             <h2>{habitos.name}</h2>
-            <div>{dias.map((d,idx)=><Dias dias={habitos.dias} idx={idx}>{d}</Dias>)}</div>
+            <div className="dias">{dias.map((d,idx)=><Dias key={idx} dias={habitos.days} idx={idx}>{d}</Dias>)}</div>
             <img alt="" src={lixeira}/>
         </CardHabitoDiv>
     )
 };
 
-const CardHabitoDiv=styled.div`
+export const CardHabitoDiv=styled.div`
     width: 100%;
     height: 91px;
     background: #FFFFFF;
@@ -24,7 +24,7 @@ const CardHabitoDiv=styled.div`
     font-size: 19.976px;
     color: #666666;
     position: relative;
-    div{
+    .dias{
         display: flex;
         gap:2px;
         justify-content: start;
@@ -38,7 +38,7 @@ const CardHabitoDiv=styled.div`
     }
 `
 
-const Dias=styled.div`
+export const Dias=styled.div`
     width: 30px;
     height: 30px;
     display: flex;

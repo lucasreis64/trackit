@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { urlLogin } from "../../Auxiliares/constants";
@@ -13,11 +14,17 @@ export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
-    const {setUserInfo}=useContext(contexto)
+    const {setUserInfo,userInfo}=useContext(contexto)
     const {setVisibilidade} = useContext(contexto)
     
     useEffect(()=>{
         setVisibilidade(false)
+        const userInfoCopy=JSON.parse(localStorage.getItem('userInfo'))
+        
+        if(userInfoCopy!==null){
+            setUserInfo(userInfoCopy)
+            navigate("/hoje")
+        }
     })
     function handleSubmit (event) {
         event.preventDefault();
@@ -27,9 +34,11 @@ export default function Login() {
             password: password
         })
         login.then((response)=>{
+            const userInfoSerializada = JSON.stringify(response.data);
             setUserInfo(response.data)
+            localStorage.setItem("userInfo", userInfoSerializada);
             navigate("/hoje")
-            console.log(response)
+            
         })
         login.catch((response)=>{
             setLoading(false)

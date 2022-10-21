@@ -11,7 +11,7 @@ export default function Header() {
             {visibilidade?
                 <HeaderContainer>
                     <p>TrackIt</p>
-                    <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ-QpBLXkhQU6hUhnE3dSEzWorcYYCS_DaKLPBuFZcK2bW_xKZPVCWKVJbDuQ1_6attrI&usqp=CAU'} alt=""/>
+                    <img src={userInfo.image} alt=""/>
                 </HeaderContainer>
                 :
                 <>
@@ -22,12 +22,11 @@ export default function Header() {
 };
 
 const HeaderContainer = styled.div`
-    width: 100%;
+    width: inherit;
     height: 70px;
     box-sizing: border-box;
-    position: absolute;
+    position: fixed;
     top: 0;
-    left: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -36,6 +35,7 @@ const HeaderContainer = styled.div`
     color: white;
     background-color: #126BA5;
     font-size: 39px;
+    z-index: 1;
     img{
         border-radius: 50%;
         
