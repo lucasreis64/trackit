@@ -9,7 +9,7 @@ import CardHabito from "./CardHabito"
 import NovoHabito from "./NovoHabito"
 
 export default function Habitos () {
-       const {setVisibilidade, userInfo, setUserInfo}=useContext(contexto)
+       const {setVisibilidade, userInfo}=useContext(contexto)
        const [habitos, setHabitos] = useState('')
        const [addHabito, setAddHabito] = useState(false)
        const navigate=useNavigate()
@@ -50,8 +50,7 @@ export default function Habitos () {
 const HabitosContainer=styled.div`
        background: #E5E5E5;
        height: 100vh;
-       padding: 20px 15px;
-       overflow: hidden;
+       padding: 20px 15px 120px;
        div{
               display: flex;
               justify-content: space-between;

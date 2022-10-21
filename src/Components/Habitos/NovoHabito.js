@@ -1,19 +1,34 @@
-import { useState } from "react"
+import axios from "axios"
+import { useContext, useState } from "react"
 import styled from "styled-components"
-import {dias} from "../../Auxiliares/constants"
+import {dias, urlHabitos} from "../../Auxiliares/constants"
+import { contexto } from "../../Context/Context"
 import Dia from "./Dia"
 
 export default function NovoHabito({habitos, setAddHabito}) {
     const [diasSelecionados,setDiasSelecionados] = useState([])
     const [atualizar, setAtualizar] = useState(false)
+    const {userInfo} = useContext(contexto)
+    const [nomeHabito, setNomeHabito] = useState('')
     
     function postHabito () {
-        console.log('')
+
+            const novoHabitoPost = axios.post(urlHabitos, {
+                name: nomeHabito,
+                days: diasSelecionados
+            }, 
+            {
+                headers: {
+                    'Authorization': `Bearer ${userInfo.token}`
+                }
+            })
+            novoHabitoPost.then((response)=>setAddHabito())
+            novoHabitoPost.catch((response=>console.log(response)))
     }
 
     return (
         <NovoHabitoDiv>
-            <input placeholder="nome do hábito" required/>
+            <input placeholder="nome do hábito" value={nomeHabito} onChange={(e)=>setNomeHabito(e.target.value)} required/>
             <div className="dias">{dias.map((d,idx)=><Dia setAtualizar={setAtualizar} setDiasSelecionados={setDiasSelecionados} atualizar={atualizar}
             key={idx} dias={dias} diasSelecionados={diasSelecionados} idx={idx}>{d}</Dia>)}</div>
             <div className="botoes"><p onClick={()=>setAddHabito(false)}>Cancelar</p><button onClick={()=>postHabito()}>Salvar</button></div>

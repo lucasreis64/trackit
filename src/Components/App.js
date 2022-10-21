@@ -44,7 +44,7 @@ const SmartPhoneContainer = styled.div`
     width: 350px;
     height: 100vh;
     background-color: white;
-    padding: 70px 0;
+    padding: 70px 0px;
     @media (max-width: 600px) {
         width: 100%;
     }
