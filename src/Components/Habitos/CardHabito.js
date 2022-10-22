@@ -1,13 +1,38 @@
+import axios from "axios"
+import { useContext } from "react"
 import styled from "styled-components"
 import { dias, lixeira } from "../../Auxiliares/constants"
+import { contexto } from "../../Context/Context"
 
 
-export default function CardHabito({habitos}) {
+export default function CardHabito({habitos, getHabitos}) {
+    const {userInfo} = useContext(contexto)
+    function deletarHabito (id) {
+        const confirm = window.confirm("Deseja, de fato, apagar o hábito?")
+
+        if(!confirm) return
+
+        const delet = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
+        {
+            headers: {
+                'Authorization': `Bearer ${userInfo.token}`
+            }
+        }
+        )
+        delet.then(()=>{
+            console.log('deu bom')
+            getHabitos()
+        })
+        delet.catch(()=>{
+            console.log('deu ruim')
+        })
+    }
+
     return (
         <CardHabitoDiv>
             <h2>{habitos.name}</h2>
             <div className="dias">{dias.map((d,idx)=><Dias key={idx} dias={habitos.days} idx={idx}>{d}</Dias>)}</div>
-            <img alt="" src={lixeira}/>
+            <img onClick={()=>deletarHabito(habitos.id)} alt="" src={lixeira}/>
         </CardHabitoDiv>
     )
 };

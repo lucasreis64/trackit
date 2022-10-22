@@ -5,14 +5,11 @@ import {dias, urlHabitos} from "../../Auxiliares/constants"
 import { contexto } from "../../Context/Context"
 import Dia from "./Dia"
 
-export default function NovoHabito({habitos, setAddHabito}) {
-    const [diasSelecionados,setDiasSelecionados] = useState([])
+export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHabito, diasSelecionados,setDiasSelecionados}) {
     const [atualizar, setAtualizar] = useState(false)
     const {userInfo} = useContext(contexto)
-    const [nomeHabito, setNomeHabito] = useState('')
     
     function postHabito () {
-
             const novoHabitoPost = axios.post(urlHabitos, {
                 name: nomeHabito,
                 days: diasSelecionados
@@ -22,16 +19,22 @@ export default function NovoHabito({habitos, setAddHabito}) {
                     'Authorization': `Bearer ${userInfo.token}`
                 }
             })
-            novoHabitoPost.then((response)=>setAddHabito())
+            novoHabitoPost.then((response)=>{setAddHabito();setDiasSelecionados([]);setNomeHabito('')})
             novoHabitoPost.catch((response=>console.log(response)))
+    }
+
+    function handleSubmit (event) {
+        event.preventDefault()
     }
 
     return (
         <NovoHabitoDiv>
-            <input placeholder="nome do hábito" value={nomeHabito} onChange={(e)=>setNomeHabito(e.target.value)} required/>
-            <div className="dias">{dias.map((d,idx)=><Dia setAtualizar={setAtualizar} setDiasSelecionados={setDiasSelecionados} atualizar={atualizar}
-            key={idx} dias={dias} diasSelecionados={diasSelecionados} idx={idx}>{d}</Dia>)}</div>
-            <div className="botoes"><p onClick={()=>setAddHabito(false)}>Cancelar</p><button onClick={()=>postHabito()}>Salvar</button></div>
+            <form onSubmit={handleSubmit}>
+                <input placeholder="nome do hábito" value={nomeHabito} onChange={(e)=>setNomeHabito(e.target.value)} required/>
+                <div className="dias">{dias.map((d,idx)=><Dia setAtualizar={setAtualizar} setDiasSelecionados={setDiasSelecionados} atualizar={atualizar}
+                key={idx} dias={dias} diasSelecionados={diasSelecionados} idx={idx}>{d}</Dia>)}</div>
+                <div className="botoes"><p onClick={()=>setAddHabito(false)}>Cancelar</p><button onClick={()=>postHabito()}>Salvar</button></div>
+            </form>
         </NovoHabitoDiv>
     )
 };

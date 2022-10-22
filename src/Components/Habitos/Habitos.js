@@ -12,10 +12,15 @@ export default function Habitos () {
        const {setVisibilidade, userInfo}=useContext(contexto)
        const [habitos, setHabitos] = useState('')
        const [addHabito, setAddHabito] = useState(false)
+       const [nomeHabito, setNomeHabito] = useState('')
+       const [diasSelecionados,setDiasSelecionados] = useState([])
        const navigate=useNavigate()
        useEffect(()=>{
               setVisibilidade(true)
-              
+              getHabitos()
+       },[addHabito])
+
+       function getHabitos(){
               if(JSON.stringify(userInfo)==="{}"){
                      navigate("/")
               }
@@ -26,7 +31,7 @@ export default function Habitos () {
               )
               listaHabitos.then((response)=>setHabitos(response.data))
               listaHabitos.catch((response=>console.log('deu ruim')))
-       },[])
+       }
 
        function novoHabito(){
               setAddHabito(true)
@@ -35,12 +40,13 @@ export default function Habitos () {
        return(
               <HabitosContainer>
                      <div><h1>Meus hábitos</h1><button onClick={novoHabito}>+</button></div>
-                     {addHabito?<NovoHabito setAddHabito={setAddHabito} habitos={habitos}/>:<></>}
+                     {addHabito?<NovoHabito nomeHabito={nomeHabito} setNomeHabito={setNomeHabito} setAddHabito={setAddHabito}
+                     habitos={habitos} diasSelecionados={diasSelecionados} setDiasSelecionados={setDiasSelecionados}/>:<></>}
                      <div className="container-cards">
                             {habitos?
-                                   habitos.map((h)=><CardHabito key={h.id} habitos={h}/>)
+                                   habitos.map((h)=><CardHabito  getHabitos={getHabitos} key={h.id} habitos={h}/>)
                                    :
-                                   <></>
+                                   <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
                             }
                      </div>
               </HabitosContainer>
@@ -49,7 +55,7 @@ export default function Habitos () {
 
 const HabitosContainer=styled.div`
        background: #E5E5E5;
-       height: 100vh;
+       min-height: 100vh;
        padding: 20px 15px 120px;
        div{
               display: flex;
@@ -74,20 +80,8 @@ const HabitosContainer=styled.div`
               flex-direction: column;
               gap: 7px;
        }
+       p{
+              font-size: 17.976px;
+              color: #666666;
+       }
 `
-
-/* useEffect(()=>{
-       setVisibilidade(true)
-
-       const listaHabitos = axios.post(urlHabitos, {
-              name: "Nome do hábito",
-              days: [1, 3, 5]
-       }, 
-       {
-              headers: {
-                     'Authorization': `Bearer ${userInfo.token}`
-              }
-       })
-       listaHabitos.then((response)=>console.log('ok'))
-       listaHabitos.catch((response=>console.log(response)))
-},[]) */
