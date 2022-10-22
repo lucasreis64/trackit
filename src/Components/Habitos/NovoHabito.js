@@ -1,13 +1,14 @@
 import axios from "axios"
 import { useContext, useState } from "react"
 import styled from "styled-components"
-import {dias, urlHabitos} from "../../Auxiliares/constants"
+import {carregamento, dias, urlHabitos} from "../../Auxiliares/constants"
 import { contexto } from "../../Context/Context"
 import Dia from "./Dia"
 
 export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHabito, diasSelecionados,setDiasSelecionados}) {
     const [atualizar, setAtualizar] = useState(false)
     const {userInfo} = useContext(contexto)
+    const [carregando, setCarregando] = useState(false)
     
     function postHabito () {
             const novoHabitoPost = axios.post(urlHabitos, {
@@ -19,22 +20,32 @@ export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHa
                     'Authorization': `Bearer ${userInfo.token}`
                 }
             })
-            novoHabitoPost.then((response)=>{setAddHabito();setDiasSelecionados([]);setNomeHabito('')})
-            novoHabitoPost.catch((response=>console.log(response)))
+            novoHabitoPost.then((response)=>{setAddHabito();setDiasSelecionados([]);setNomeHabito('');setCarregando(false)})
+            novoHabitoPost.catch((response=>{setCarregando(false)}))
     }
 
     function handleSubmit (event) {
         event.preventDefault()
+        setCarregando(true)
     }
 
     return (
         <NovoHabitoDiv>
+            {carregando?
+            <form onSubmit={handleSubmit}>
+                <input disabled placeholder="nome do hábito" value={nomeHabito} onChange={(e)=>setNomeHabito(e.target.value)} required/>
+                <div className="dias">{dias.map((d,idx)=><Dia carregando={carregando} setAtualizar={setAtualizar} setDiasSelecionados={setDiasSelecionados} atualizar={atualizar}
+                key={idx} dias={dias} diasSelecionados={diasSelecionados} idx={idx}>{d}</Dia>)}</div>
+                <div className="botoes"><p>Cancelar</p><button disabled><div>{carregamento}</div></button></div>
+            </form>
+            :
             <form onSubmit={handleSubmit}>
                 <input placeholder="nome do hábito" value={nomeHabito} onChange={(e)=>setNomeHabito(e.target.value)} required/>
                 <div className="dias">{dias.map((d,idx)=><Dia setAtualizar={setAtualizar} setDiasSelecionados={setDiasSelecionados} atualizar={atualizar}
                 key={idx} dias={dias} diasSelecionados={diasSelecionados} idx={idx}>{d}</Dia>)}</div>
                 <div className="botoes"><p onClick={()=>setAddHabito(false)}>Cancelar</p><button onClick={()=>postHabito()}>Salvar</button></div>
             </form>
+            }
         </NovoHabitoDiv>
     )
 };
@@ -84,6 +95,14 @@ const NovoHabitoDiv=styled.div`
         background: #52B6FF;
         border-radius: 4.65px;
         font-size: 15.976px !important;
+        align-items: center;
+        justify-content: center; 
+        display: flex;
+        div{
+            width: 80%;
+            display: flex;
+            justify-content: center;
+        }
     }
     p{
         font-size: 15.976px;

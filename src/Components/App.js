@@ -17,9 +17,10 @@ function App() {
             <GlobalStyle />
             
             <SmartPhoneContainer>
-            <Footer/>
-            <Header/>
+            
                 <BrowserRouter>
+                    <Footer/>
+                    <Header/>
                     <Routes>
                         <Route path="/" element={<Login />} />
                         <Route path="/cadastro" element={<Cadastro />} />

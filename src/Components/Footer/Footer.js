@@ -3,6 +3,7 @@ import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useContext } from "react";
 import { contexto } from "../../Context/Context";
+import { Link } from "react-router-dom";
 
 
 export default function Footer() {
@@ -12,9 +13,9 @@ export default function Footer() {
         <>
             {visibilidade?
                 <FooterContainer>
-                    <p>Hábitos</p>
-                    <div><Progresso backgroundPadding={6} value={porcentagem} background={true} text={`Hoje`} styles={buildStyles(stylesProgresso)}/></div>
-                    <p>Histórico</p>
+                    <Link to="/habitos"><p>Hábitos</p></Link>
+                    <Link to="/hoje"><div><Progresso backgroundPadding={6} value={porcentagem} background={true} text={`Hoje`} styles={buildStyles(stylesProgresso)}/></div></Link>
+                    <Link to="/historico"><p>Histórico</p></Link>
                 </FooterContainer>
                 :
                 <>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function Dia({dias,diasSelecionados,setDiasSelecionados,idx,atualizar,setAtualizar,children}) {
+export default function Dia({dias,diasSelecionados,setDiasSelecionados,idx,atualizar,setAtualizar,carregando,children}) {
     function pintarDia (indice) {
         if(diasSelecionados[indice]===dias[indice]){
             const diasCopy=diasSelecionados
@@ -19,7 +19,13 @@ export default function Dia({dias,diasSelecionados,setDiasSelecionados,idx,atual
     }
     
     return (
-        <DiaDiv atualizar={atualizar} onClick={()=>pintarDia(idx)} diasSelecionados={diasSelecionados} idx={idx}>{children}</DiaDiv>
+        <>
+            {carregando?
+            <DiaDiv atualizar={atualizar} diasSelecionados={diasSelecionados} idx={idx}>{children}</DiaDiv>
+            :
+            <DiaDiv atualizar={atualizar} onClick={()=>pintarDia(idx)} diasSelecionados={diasSelecionados} idx={idx}>{children}</DiaDiv>
+            }
+        </>
     )
 };
 
