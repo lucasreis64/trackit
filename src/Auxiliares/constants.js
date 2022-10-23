@@ -7,6 +7,8 @@ export const urlSignUp = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/tra
 
 export const urlHabitos = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
 
+export const urlHoje = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today"
+
 export const lixeira = lixeiraIcon
 
 export const dias=['D','S','T','Q','Q','S','S']
