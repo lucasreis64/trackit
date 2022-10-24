@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-export default function Dia({dias,diasSelecionados,setDiasSelecionados,idx,atualizar,setAtualizar,carregando,children}) {
+export default function Dia({diasSelecionados,setDiasSelecionados,idx,atualizar,setAtualizar,carregando,children}) {
     function pintarDia (indice) {
-        if(diasSelecionados[indice]===dias[indice]){
-            const diasCopy=diasSelecionados
-            diasCopy[indice]=''
+        if(diasSelecionados.includes(indice)){
+            let diasCopy=diasSelecionados
+            let idx=diasSelecionados.indexOf(indice)
+            diasCopy.splice(idx,1)
             console.log(diasCopy)
             setDiasSelecionados(diasCopy)
             setAtualizar(!atualizar)

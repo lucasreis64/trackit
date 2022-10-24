@@ -26,6 +26,7 @@ export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHa
 
     function handleSubmit (event) {
         event.preventDefault()
+        postHabito()
         setCarregando(true)
     }
 
@@ -43,7 +44,7 @@ export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHa
                 <input placeholder="nome do hábito" value={nomeHabito} onChange={(e)=>setNomeHabito(e.target.value)} required/>
                 <div className="dias">{dias.map((d,idx)=><Dia setAtualizar={setAtualizar} setDiasSelecionados={setDiasSelecionados} atualizar={atualizar}
                 key={idx} dias={dias} diasSelecionados={diasSelecionados} idx={idx}>{d}</Dia>)}</div>
-                <div className="botoes"><p onClick={()=>setAddHabito(false)}>Cancelar</p><button onClick={()=>postHabito()}>Salvar</button></div>
+                <div className="botoes"><p onClick={()=>setAddHabito(false)}>Cancelar</p><button>Salvar</button></div>
             </form>
             }
         </NovoHabitoDiv>

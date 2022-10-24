@@ -56,7 +56,7 @@ const Progresso=styled(CircularProgressbar)`
 const stylesProgresso=
 {
     // Rotation of path and trail, in number of turns (0-1)
-    rotation: 0.25,
+    rotation: 1,
 
     // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
     strokeLinecap: 'round',

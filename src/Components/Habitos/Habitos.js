@@ -22,6 +22,7 @@ export default function Habitos () {
 
        function getHabitos(){
               if(JSON.stringify(userInfo)==="{}"){
+                     console.log('oi')
                      navigate("/")
               }
               const listaHabitos = axios.get(urlHabitos, {

@@ -1,32 +1,55 @@
-import dayjs from "dayjs"
+import axios from "axios"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
+import { contexto } from "../../Context/Context"
 import check from "../../img/check.png"
 
+export default function CardHoje({habitosHoje, getHabitoDia}) {
+    const {userInfo} = useContext(contexto)
+    const [colorRecorde, setColorRecorde] = useState(false)
+    const [colorAtual, setColorAtual] = useState(false)
+    const atual = habitosHoje.currentSequence
+    const recorde = habitosHoje.highestSequence
+    useEffect(()=>{
+        if (habitosHoje.done) setColorAtual(true)
+        if (recorde===atual) setColorRecorde(true)
+    },[])
+    function handleClick(id){
+        if(habitosHoje.done){
+            const checkPost = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`,
+            '',{
+                headers: {
+                    'Authorization': `Bearer ${userInfo.token}`
+                }
+            })
+            checkPost.then(()=>{getHabitoDia()})
+            checkPost.then(()=>console.log('tudo errado'))
+        }
+        else{
+            const checkPost = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`,
+            '',{
+                headers: {
+                    'Authorization': `Bearer ${userInfo.token}`
+                }
+            })
+            checkPost.then(()=>{setColorAtual(true);if(recorde===atual) setColorRecorde(true);getHabitoDia()})
+            checkPost.then(()=>console.log('tudo errado'))
+        }
+    }
 
-const str = dayjs().format('DD/MM/YYYY')
-let parts = str.split('/'),
-    year = parseInt(parts[2], 10),
-    month = parseInt(parts[1], 10) - 1,
-    day = parseInt(parts[0], 10),
-    date = new Date(year, month, day),
-    dia = date.getDay();
-console.log(dia)
-
-console.log(day)
-export default function CardHoje() {
     return (
-        <CardHojeDiv>
+        <CardHojeDiv colorAtual={colorAtual} colorRecorde={colorRecorde} checked={habitosHoje.done}>
             <div>
-                <h1>Ler</h1>
-                <h2>Sequência atual: 3 dias</h2>
-                <h2>Seu recorde: 5 dias</h2>
+                <h1>{habitosHoje.name}</h1>
+                <h2>Sequência atual: <span>{atual}</span></h2>
+                <h2>Seu recorde: <span>{}{recorde}</span></h2>
             </div>
-            <button>
+            <button onClick={()=>handleClick(habitosHoje.id)}>
                 <img src={check} alt=""/>
             </button>
         </CardHojeDiv>
     )
-};
+}
 
 
 const CardHojeDiv = styled.div`
@@ -52,7 +75,7 @@ const CardHojeDiv = styled.div`
         height: 69px!important;
         justify-content: center;
         align-items: center;
-        background: #EBEBEB;
+        background: ${props=>props.checked?'#8FC549':'#EBEBEB'} !important;
         img{
             margin-top: 2px;
         }

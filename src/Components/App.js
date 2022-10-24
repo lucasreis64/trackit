@@ -7,7 +7,7 @@ import Login from "./Login/Login";
 import Cadastro from "./Cadastro/Cadastro";
 import Historico from "./Historico/Historico";
 import Footer from "./Footer/Footer";
-import Header from "../Header/Header";
+import Header from "./Header/Header";
 
 
 function App() {

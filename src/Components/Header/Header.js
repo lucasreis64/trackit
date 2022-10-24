@@ -1,17 +1,18 @@
 import styled from "styled-components"
 import { useContext } from "react";
-import { contexto } from "../Context/Context";
+import { contexto } from "../../Context/Context";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Header() {
     const {visibilidade,userInfo} = useContext(contexto)
-
+    const navigate = useNavigate()
     return (
         <>
             {visibilidade?
                 <HeaderContainer>
                     <p>TrackIt</p>
-                    <img src={userInfo.image} alt=""/>
+                    <img onClick={()=><>{localStorage.clear()};{navigate('/')}</>} src={userInfo.image} alt=""/>
                 </HeaderContainer>
                 :
                 <>
