@@ -2,17 +2,20 @@ import styled from "styled-components"
 import { useContext } from "react";
 import { contexto } from "../../Context/Context";
 import { useNavigate } from "react-router-dom";
-
+import exit from "../../img/exit.png"
 
 export default function Header() {
-    const {visibilidade,userInfo} = useContext(contexto)
+    const {visibilidade,userInfo, setUserInfo} = useContext(contexto)
     const navigate = useNavigate()
     return (
         <>
             {visibilidade?
                 <HeaderContainer>
                     <p>TrackIt</p>
-                    <img onClick={()=><>{localStorage.clear()};{navigate('/')}</>} src={userInfo.image} alt=""/>
+                    <div>
+                        <img src={userInfo.image} alt=""/>
+                        <img className='exit' src={exit} onClick={()=><>{localStorage.clear()};{setUserInfo({})};{navigate('/')}</>} alt=""/>
+                    </div>
                 </HeaderContainer>
                 :
                 <>
@@ -40,6 +43,11 @@ const HeaderContainer = styled.div`
     img{
         border-radius: 50%;
         
+        height: 51px;
+        width: 51px;
+    }
+    .exit img{
+        border-radius: none;
         height: 51px;
         width: 51px;
     }

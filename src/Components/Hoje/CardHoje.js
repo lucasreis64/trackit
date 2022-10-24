@@ -35,7 +35,6 @@ export default function CardHoje({habitosHoje, getHabitoDia, tempo}) {
                 }
             })
             checkPost.then(()=>{setColorAtual(true);if(recorde===atual) setColorRecorde(true);getHabitoDia()})
-            checkPost.then(()=>console.log('tudo errado'))
         }
     }
 

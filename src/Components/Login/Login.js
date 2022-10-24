@@ -17,7 +17,7 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
     const {setUserInfo,userInfo}=useContext(contexto)
-    const {setVisibilidade} = useContext(contexto)
+    const {setVisibilidade, permanecerConectado, setPermanecerConectado} = useContext(contexto)
     
     useEffect(()=>{
         setVisibilidade(false)
@@ -36,11 +36,13 @@ export default function Login() {
             password: password
         })
         login.then((response)=>{
-            const userInfoSerializada = JSON.stringify(response.data);
+            console.log(permanecerConectado)
+            if(permanecerConectado){
+                const userInfoSerializada = JSON.stringify(response.data);
+                localStorage.setItem("userInfo", userInfoSerializada);
+            }
             setUserInfo(response.data)
-            localStorage.setItem("userInfo", userInfoSerializada);
             navigate("/hoje")
-            
         })
         login.catch((response)=>{
             setLoading(false)
@@ -62,6 +64,7 @@ export default function Login() {
                     <input name="email" type="email" placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)} required/>
                     <input name="password" type="password" placeholder="senha" value={password} onChange={(e)=>setPassword(e.target.value)} required/>
                     <button>Cadastrar</button>
+                    <label>Permanecer conectado?<input className='check' type="checkbox" checked={permanecerConectado} onChange={()=>setPermanecerConectado(!permanecerConectado)}/></label>
                 </form>
                 <Link to="/cadastro"><p>Já tem uma conta? Faça login!</p></Link>
             </>
@@ -71,6 +74,7 @@ export default function Login() {
                     <input name="email" type="email" placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)} disabled/>
                     <input name="password" type="password" placeholder="senha" value={password} onChange={(e)=>setPassword(e.target.value)} disabled/>
                     <button disabled>{carregamento}</button>
+                    <label>Permanecer conectado?<input disabled className='check' type="checkbox" value={permanecerConectado}/></label>
                 </form>
                 <Link to="/cadastro"><p>Já tem uma conta? Faça login!</p></Link>
             </>
@@ -109,6 +113,15 @@ export const LoginContainer = styled.div`
         border: 1px solid #D5D5D5;
         border-radius: 5px;
         box-sizing: border-box;
+    }
+    input.check{
+        width: 15px;
+        height: 15px;
+        margin-left: 10px;
+    }
+    label{
+        font-size: 15px;
+        color: gray;
     }
     input::placeholder{
         font-weight: 400;

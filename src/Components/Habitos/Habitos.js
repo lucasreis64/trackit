@@ -34,7 +34,6 @@ export default function Habitos () {
                      }}
               )
               listaHabitos.then((response)=>setHabitos(response.data))
-              listaHabitos.catch((response=>console.log('deu ruim')))
        }
 
        function novoHabito(){
@@ -50,8 +49,6 @@ export default function Habitos () {
               })
               
               habitosHojeGet.then((response)=>{porcentagemTarefas(response.data)})
-              
-              habitosHojeGet.catch((response)=>console.log(response))
        }
 
        function porcentagemTarefas (response) {
@@ -83,7 +80,6 @@ export default function Habitos () {
 
 const HabitosContainer=styled.div`
        background: #E5E5E5;
-       min-height: 100vh;
        padding: 20px 15px 120px;
        div{
               display: flex;

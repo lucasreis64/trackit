@@ -28,7 +28,6 @@ export default function Historico() {
 
 const HistoricoContainer = styled.div`
     background: #e5e5e5;
-    min-height: 100vh;
     padding: 20px 15px 120px;
     h1 {
         font-size: 23px;

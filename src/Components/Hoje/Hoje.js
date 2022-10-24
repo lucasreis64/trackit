@@ -53,7 +53,7 @@ export default function Hoje() {
     function porcentagemTarefas (response) {
         let quant=0
         response.forEach((h)=>{
-            if (h.done){quant++;console.log(quant)}
+            if (h.done){quant++}
         })
 
         setPorcentagem(quant/response.length*100)
@@ -87,7 +87,6 @@ export default function Hoje() {
 
 const HojeContainer = styled.div`
     background: #e5e5e5;
-    min-height: 100vh;
     padding: 20px 15px 120px;
     h1 {
         font-size: 23px;
