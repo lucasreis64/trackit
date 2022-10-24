@@ -40,9 +40,9 @@ export default function CardHoje({habitosHoje, getHabitoDia}) {
     return (
         <CardHojeDiv checked={habitosHoje.done}>
             <div>
-                <h1>{habitosHoje.name}</h1>
-                <h2>Sequência atual: <Span colorAtual={colorAtual}>{atual}</Span></h2>
-                <h2>Seu recorde: <Span2 colorRecorde={colorRecorde}>{}{recorde}</Span2></h2>
+                <h2>{habitosHoje.name}</h2>
+                <h3>Sequência atual: <Span colorAtual={colorAtual}>{atual}</Span></h3>
+                <h3>Seu recorde: <Span2 colorRecorde={colorRecorde}>{}{recorde}</Span2></h3>
             </div>
             <button onClick={()=>handleClick(habitosHoje.id)}>
                 <img src={check} alt=""/>
@@ -62,13 +62,15 @@ const CardHojeDiv = styled.div`
     align-items: center;
     box-sizing: border-box;
     padding: 0 12px;
-    h1{
+    h2{
         font-size: 20px;
         color: #666666;
+        margin-bottom: 10px;
     }
-    h2{
+    h3{
         font-size: 13px;
         color: #666666;
+        margin-bottom:3px;
     }
     button{
         width: 69px!important;
