@@ -5,13 +5,14 @@ import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { diasSemana, urlHoje } from "../../Auxiliares/constants";
+import { diasSemana, loadingCards, urlHoje } from "../../Auxiliares/constants";
 import { contexto } from "../../Context/Context";
+import { CardHabitoLoading } from "../Habitos/Habitos";
 import CardHoje from "./CardHoje";
 
 export default function Hoje() {
     const { setVisibilidade, userInfo, porcentagem, setPorcentagem } = useContext(contexto)
-    const [habitosHoje, setHabitosHoje] = useState([])
+    const [habitosHoje, setHabitosHoje] = useState(null)
     const [diaHoje, setDiaHoje] = useState('')
     const [dia, setDia] = useState('')
     const [data, setData] = useState([])
@@ -66,8 +67,12 @@ export default function Hoje() {
 
     return (
         <HojeContainer>
-            <div><h1>{diaHoje}, {data[0]<10?0:''}{data[0]}/{data[1]<10?0:''}{data[1]}</h1><H2 color={color}>{(porcentagem>0)?porcentagem+'% dos hábitos concluídos':'Nenhum hábito concluído ainda'}</H2></div>
-            {habitosHoje.map((h,idx)=><CardHoje key={h.id} getHabitoDia={getHabitoDia} habitosHoje={h}  idx={idx}/>)}
+            <div><h1>{diaHoje}, {data[0]<10?0:''}{data[0]}/{data[1]<10?0:''}{data[1]}</h1><H2 color={color}>{habitosHoje?(porcentagem>0)?parseInt(porcentagem)+'% dos hábitos concluídos':'Nenhum hábito concluído ainda':'Carregando...'}</H2></div>
+            {habitosHoje?
+                habitosHoje.map((h,idx)=><CardHoje key={h.id} getHabitoDia={getHabitoDia} habitosHoje={h}  idx={idx}/>)
+                                                                    :
+                loadingCards.map((l)=><CardHojeLoading><div/></CardHojeLoading>)
+            }
         </HojeContainer>
     )
 }
@@ -79,6 +84,7 @@ const HojeContainer = styled.div`
     h1 {
         font-size: 23px;
         color: #126ba5;
+        margin-bottom: 10px;
     }
     button {
         width: 40px;
@@ -105,4 +111,14 @@ const H2 = styled.h2`
     font-size: 18px;
     color: ${props=>props.color?'#8FC549':'#BABABA'};
     margin-top: 3px;
+`
+
+const CardHojeLoading = styled(CardHabitoLoading)`
+    width: 100%;
+    height: 94px;
+    margin-top: 20px;
+    div{
+        width: 100%;
+        height: 94px;
+    }
 `

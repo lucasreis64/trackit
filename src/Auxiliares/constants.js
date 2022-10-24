@@ -15,6 +15,8 @@ export const dias=['D','S','T','Q','Q','S','S']
 
 export const diasSemana=['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
 
+export const loadingCards = ['','','','','','','','']
+
 export const carregamento =
                                 <ThreeDots 
                                     height="80" 

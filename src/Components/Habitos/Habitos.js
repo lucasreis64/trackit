@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { urlHabitos } from "../../Auxiliares/constants"
 import { contexto } from "../../Context/Context"
+import {loadingCards} from "../../Auxiliares/constants"
+import { loading } from "../../Auxiliares/animations"
 import CardHabito from "./CardHabito"
 import NovoHabito from "./NovoHabito"
 
 export default function Habitos () {
        const {setVisibilidade, userInfo}=useContext(contexto)
-       const [habitos, setHabitos] = useState('')
+       const [habitos, setHabitos] = useState(null)
        const [addHabito, setAddHabito] = useState(false)
        const [nomeHabito, setNomeHabito] = useState('')
        const [diasSelecionados,setDiasSelecionados] = useState([])
@@ -45,9 +47,11 @@ export default function Habitos () {
                      habitos={habitos} diasSelecionados={diasSelecionados} setDiasSelecionados={setDiasSelecionados}/>:<></>}
                      <div className="container-cards">
                             {habitos?
-                                   habitos.map((h)=><CardHabito  getHabitos={getHabitos} key={h.id} habitos={h}/>)
-                                   :
+                                   (habitos.length>0)?habitos.map((h)=><CardHabito  getHabitos={getHabitos} key={h.id} habitos={h}/>)
+                                                                             :
                                    <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+                                   :
+                                   loadingCards.map((l)=><CardHabitoLoading><div/></CardHabitoLoading>)
                             }
                      </div>
               </HabitosContainer>
@@ -85,4 +89,19 @@ const HabitosContainer=styled.div`
               font-size: 17.976px;
               color: #666666;
        }
+`
+
+export const CardHabitoLoading = styled.div`
+       width: 100%;
+       height: 91px;
+       overflow: hidden;
+       background-color: whitesmoke;
+
+       div{
+       width: 100%;
+       height: 91px;
+       background: linear-gradient( to right , transparent, #e3e3e3, transparent);
+       transform: translateX(-100%);
+       animation: ${loading} 1s infinite;
+}
 `

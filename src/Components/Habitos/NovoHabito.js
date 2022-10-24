@@ -58,7 +58,7 @@ export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHa
             </form>
             :
             <form onSubmit={handleSubmit}>
-                <input placeholder="nome do hábito" value={nomeHabito} onChange={(e)=>setNomeHabito(e.target.value)} required/>
+                <input placeholder="nome do hábito" maxLength={28} value={nomeHabito} onChange={(e)=>setNomeHabito(e.target.value)} required/>
                 <div className="dias">{dias.map((d,idx)=><Dia setAtualizar={setAtualizar} setDiasSelecionados={setDiasSelecionados} atualizar={atualizar}
                 key={idx} dias={dias} diasSelecionados={diasSelecionados} idx={idx}>{d}</Dia>)}</div>
                 <div className="botoes"><p onClick={()=>setAddHabito(false)}>Cancelar</p><button>Salvar</button></div>
