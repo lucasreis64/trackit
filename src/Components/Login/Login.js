@@ -7,6 +7,7 @@ import logo from "../../img/TrackIt-Logo.jpg"
 import axios from "axios";
 import { carregamento } from "../../Auxiliares/constants";
 import { contexto } from "../../Context/Context";
+import Swal from "sweetalert2";
 
 
 export default function Login() {
@@ -42,7 +43,12 @@ export default function Login() {
         })
         login.catch((response)=>{
             setLoading(false)
-            alert('Tente novamente!')
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Usuário ou senha incorretos!',
+                footer: 'Tente novamente!'
+            })
         })
     }
 
@@ -77,11 +83,16 @@ export const LoginContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center; 
-    justify-content: center;
-    padding: 20% 10%;
+    justify-content: start;
+    padding: 30% 10%;
     box-sizing: border-box;
+    background-color: white;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
     img{
-        height: 35%;
+        height: 28%;
         margin-bottom: 15%;
     }
     form{

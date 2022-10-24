@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useContext, useState } from "react"
 import styled from "styled-components"
+import Swal from "sweetalert2"
 import {carregamento, dias, urlHabitos} from "../../Auxiliares/constants"
 import { contexto } from "../../Context/Context"
 import Dia from "./Dia"
@@ -11,6 +12,14 @@ export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHa
     const [carregando, setCarregando] = useState(false)
     
     function postHabito () {
+            if (diasSelecionados.length===0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Seu hábito não foi criado!',
+                    footer: 'Selecione ao menos um dia da semana!'
+                })
+            }
             const novoHabitoPost = axios.post(urlHabitos, {
                 name: nomeHabito,
                 days: diasSelecionados
@@ -21,7 +30,15 @@ export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHa
                 }
             })
             novoHabitoPost.then((response)=>{setAddHabito();setDiasSelecionados([]);setNomeHabito('');setCarregando(false)})
-            novoHabitoPost.catch((response=>{setCarregando(false)}))
+            novoHabitoPost.catch((response=>{
+                setCarregando(false)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Seu hábito não foi criado!',
+                    footer: 'Tente novamente!'
+                })
+            }))
     }
 
     function handleSubmit (event) {

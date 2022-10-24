@@ -6,6 +6,7 @@ import logo from "../../img/TrackIt-Logo.jpg"
 import axios from "axios";
 import { carregamento } from "../../Auxiliares/constants";
 import { contexto } from "../../Context/Context";
+import Swal from "sweetalert2";
 
 export default function Cadastro() {
     const navigate = useNavigate()
@@ -29,9 +30,24 @@ export default function Cadastro() {
             password: password
         })
         login.then(()=>navigate("/"))
-        login.catch((response)=>{
+        login.catch(({response})=>{
+            if (response.status===409) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Conflito!',
+                    text: 'Usuário já existe!',
+                    footer: 'Tente novamente!'
+                })
+            }
+            else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro desconhecido!',
+                    text: 'Cheque sua conexão com a internet!',
+                    footer: 'Tente novamente!'
+                })
+            }
             setLoading(false)
-            alert('Tente novamente!')
         })
     }
 
@@ -45,7 +61,7 @@ export default function Cadastro() {
                     <input name="password" type="password" placeholder="senha" value={password} onChange={(e)=>setPassword(e.target.value)} required/>
                     <input name="name" type="name" placeholder="nome" value={nome} onChange={(e)=>setNome(e.target.value)} required/>
                     <input name="url" type="url" placeholder="foto" value={foto} onChange={(e)=>setFoto(e.target.value)} required/>
-                    <button>Entrar</button>
+                    <button>Cadastrar</button>
                 </form>
                 <Link to="/"><p>Já tem uma conta? Faça login!</p></Link>
             </>

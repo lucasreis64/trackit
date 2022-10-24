@@ -39,15 +39,20 @@ const Screen = styled.div`
     justify-content: center;
     align-items: center;
     background-color: black;
+    width: 100vw;
+    height: 100vh;
 `
 
 const SmartPhoneContainer = styled.div`
-    width: 350px;
-    height: 100vh;
-    background-color: white;
+    width: 500px;
+    height: 1000px;
+    background-color: #e5e5e5;
     padding: 70px 0px;
+    box-sizing: border-box;
+    position: relative;
     @media (max-width: 600px) {
         width: 100%;
+        height: 100vh;
     }
 `
 

@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useContext } from "react"
 import styled from "styled-components"
+import Swal from "sweetalert2"
 import { dias, lixeira } from "../../Auxiliares/constants"
 import { contexto } from "../../Context/Context"
 
@@ -8,24 +9,46 @@ import { contexto } from "../../Context/Context"
 export default function CardHabito({habitos, getHabitos}) {
     const {userInfo} = useContext(contexto)
     function deletarHabito (id) {
-        const confirm = window.confirm("Deseja, de fato, apagar o hábito?")
-
-        if(!confirm) return
-
-        const delet = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
-        {
-            headers: {
-                'Authorization': `Bearer ${userInfo.token}`
+        Swal.fire({
+            title: 'Você tem certeza?',
+            text: "A ação não poderá ser revertida!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, quero excluir!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Excluido!',
+                    'Seu hábito foi deletado.',
+                    'success'
+                )
+                deletarHabito()
             }
+            else return
+        })
+        function deletarHabito () {
+            const delet = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
+            {
+                headers: {
+                    'Authorization': `Bearer ${userInfo.token}`
+                }
+            }
+            )
+            delet.then(()=>{
+                console.log('deu bom')
+                getHabitos()
+            })
+            delet.catch(()=>{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Seu hábito não foi excluído!',
+                    footer: 'Tente novamente!'
+                })
+            })
         }
-        )
-        delet.then(()=>{
-            console.log('deu bom')
-            getHabitos()
-        })
-        delet.catch(()=>{
-            console.log('deu ruim')
-        })
     }
 
     return (
