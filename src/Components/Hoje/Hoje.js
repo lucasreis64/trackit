@@ -76,11 +76,6 @@ const HojeContainer = styled.div`
     background: #e5e5e5;
     min-height: 100vh;
     padding: 20px 15px 120px;
-    div {
-        h2{
-
-        }
-    }
     h1 {
         font-size: 23px;
         color: #126ba5;
