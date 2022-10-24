@@ -6,14 +6,12 @@ export default function Dia({diasSelecionados,setDiasSelecionados,idx,atualizar,
             let diasCopy=diasSelecionados
             let idx=diasSelecionados.indexOf(indice)
             diasCopy.splice(idx,1)
-            console.log(diasCopy)
             setDiasSelecionados(diasCopy)
             setAtualizar(!atualizar)
         }
         else{
             const diasCopy=diasSelecionados
             diasCopy.push(indice)
-            console.log(diasCopy)
             setDiasSelecionados(diasCopy)
             setAtualizar(!atualizar)
         }

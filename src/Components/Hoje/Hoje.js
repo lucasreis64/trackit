@@ -5,19 +5,28 @@ import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { deslizarEsquerda } from "../../Auxiliares/animations";
 import { diasSemana, loadingCards, urlHoje } from "../../Auxiliares/constants";
 import { contexto } from "../../Context/Context";
 import { CardHabitoLoading } from "../Habitos/Habitos";
 import CardHoje from "./CardHoje";
 
 export default function Hoje() {
-    const { setVisibilidade, userInfo, porcentagem, setPorcentagem } = useContext(contexto)
+    const { setVisibilidade, userInfo, porcentagem, setPorcentagem} = useContext(contexto)
     const [habitosHoje, setHabitosHoje] = useState(null)
     const [diaHoje, setDiaHoje] = useState('')
     const [dia, setDia] = useState('')
     const [data, setData] = useState([])
     const [color, setColor] = useState(false)
     const navigate = useNavigate()
+    const [tempoMs, setTempoMs] = useState(200)
+    
+    function tempo() {
+        let addTempo= tempoMs+200
+        setTempoMs(addTempo)
+        return addTempo+'ms'
+    }
+
     useEffect(() => {
             if(JSON.stringify(userInfo)==="{}"){
                     console.log('oi')
@@ -43,15 +52,14 @@ export default function Hoje() {
     
     function porcentagemTarefas (response) {
         let quant=0
-        console.log(response)
         response.forEach((h)=>{
             if (h.done){quant++;console.log(quant)}
         })
-        console.log(quant,response.length)
+
         setPorcentagem(quant/response.length*100)
         if((quant/response.length*100)>0) setColor(true);else setColor(false)
     }
-    console.log(color)
+
     function getHabitoDia() {
         const habitosHojeGet = axios.get(urlHoje,
             {
@@ -66,12 +74,12 @@ export default function Hoje() {
     }
 
     return (
-        <HojeContainer>
+        <HojeContainer habitosHoje={habitosHoje}>
             <div><h1>{diaHoje}, {data[0]<10?0:''}{data[0]}/{data[1]<10?0:''}{data[1]}</h1><H2 color={color}>{habitosHoje?(porcentagem>0)?parseInt(porcentagem)+'% dos hábitos concluídos':'Nenhum hábito concluído ainda':'Carregando...'}</H2></div>
             {habitosHoje?
-                habitosHoje.map((h,idx)=><CardHoje key={h.id} getHabitoDia={getHabitoDia} habitosHoje={h}  idx={idx}/>)
+                habitosHoje.map((h,idx)=><CardHoje tempo={tempo} key={h.id} getHabitoDia={getHabitoDia} habitosHoje={h}  idx={idx}/>)
                                                                     :
-                loadingCards.map((l)=><CardHojeLoading><div/></CardHojeLoading>)
+                loadingCards.map((l, idx)=><CardHojeLoading key={idx}><div/></CardHojeLoading>)
             }
         </HojeContainer>
     )

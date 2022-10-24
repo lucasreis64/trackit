@@ -12,14 +12,7 @@ export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHa
     const [carregando, setCarregando] = useState(false)
     
     function postHabito () {
-            if (diasSelecionados.length===0) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Seu hábito não foi criado!',
-                    footer: 'Selecione ao menos um dia da semana!'
-                })
-            }
+
             const novoHabitoPost = axios.post(urlHabitos, {
                 name: nomeHabito,
                 days: diasSelecionados
@@ -43,6 +36,16 @@ export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHa
 
     function handleSubmit (event) {
         event.preventDefault()
+        if (diasSelecionados.length===0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Seu hábito não foi criado!',
+                footer: 'Selecione ao menos um dia da semana!'
+            })
+            
+            return
+        }
         postHabito()
         setCarregando(true)
     }

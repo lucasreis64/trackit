@@ -3,7 +3,7 @@ import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import { urlHabitos } from "../../Auxiliares/constants"
+import { urlHabitos, urlHoje } from "../../Auxiliares/constants"
 import { contexto } from "../../Context/Context"
 import {loadingCards} from "../../Auxiliares/constants"
 import { loading } from "../../Auxiliares/animations"
@@ -11,7 +11,7 @@ import CardHabito from "./CardHabito"
 import NovoHabito from "./NovoHabito"
 
 export default function Habitos () {
-       const {setVisibilidade, userInfo}=useContext(contexto)
+       const {setVisibilidade, userInfo, setPorcentagem}=useContext(contexto)
        const [habitos, setHabitos] = useState(null)
        const [addHabito, setAddHabito] = useState(false)
        const [nomeHabito, setNomeHabito] = useState('')
@@ -23,6 +23,7 @@ export default function Habitos () {
        },[addHabito])
 
        function getHabitos(){
+              getHabitosPorcentagem()
               if(JSON.stringify(userInfo)==="{}"){
                      console.log('oi')
                      navigate("/")
@@ -38,6 +39,28 @@ export default function Habitos () {
 
        function novoHabito(){
               setAddHabito(true)
+       }
+
+       function getHabitosPorcentagem(){
+              const habitosHojeGet = axios.get(urlHoje,
+              {
+                     headers: {
+                            'Authorization': `Bearer ${userInfo.token}`
+                     }
+              })
+              
+              habitosHojeGet.then((response)=>{porcentagemTarefas(response.data)})
+              
+              habitosHojeGet.catch((response)=>console.log(response))
+       }
+
+       function porcentagemTarefas (response) {
+              let quant=0
+              response.forEach((h)=>{
+                     if (h.done){quant++}
+              })
+
+              setPorcentagem(quant/response.length*100)
        }
 
        return(

@@ -2,6 +2,7 @@ import axios from "axios"
 import { useContext } from "react"
 import styled from "styled-components"
 import Swal from "sweetalert2"
+import { deslizarEsquerda } from "../../Auxiliares/animations"
 import { dias, lixeira } from "../../Auxiliares/constants"
 import { contexto } from "../../Context/Context"
 
@@ -72,6 +73,7 @@ export const CardHabitoDiv=styled.div`
     font-size: 19.976px;
     color: #666666;
     position: relative;
+    animation: ${deslizarEsquerda} 1s 1;
     .dias{
         display: flex;
         gap:2px;
@@ -97,5 +99,4 @@ export const Dias=styled.div`
     border-radius: 5px;
     font-size: 19.976px;
     color: ${({dias, idx})=>(dias!==undefined && dias.includes(idx))?'white':"#CFCFCF"};
-
 `

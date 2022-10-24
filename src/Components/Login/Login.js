@@ -8,6 +8,7 @@ import axios from "axios";
 import { carregamento } from "../../Auxiliares/constants";
 import { contexto } from "../../Context/Context";
 import Swal from "sweetalert2";
+import { deslizarEsquerda } from "../../Auxiliares/animations";
 
 
 export default function Login() {

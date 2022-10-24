@@ -2,10 +2,11 @@
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
+import { deslizarEsquerda } from "../../Auxiliares/animations"
 import { contexto } from "../../Context/Context"
 import check from "../../img/check.png"
 
-export default function CardHoje({habitosHoje, getHabitoDia}) {
+export default function CardHoje({habitosHoje, getHabitoDia, tempo}) {
     const {userInfo} = useContext(contexto)
     const [colorRecorde, setColorRecorde] = useState(false)
     const [colorAtual, setColorAtual] = useState(false)
@@ -39,7 +40,7 @@ export default function CardHoje({habitosHoje, getHabitoDia}) {
     }
 
     return (
-        <CardHojeDiv checked={habitosHoje.done}>
+        <CardHojeDiv tempo={tempo} checked={habitosHoje.done}>
             <div>
                 <h2>{habitosHoje.name}</h2>
                 <h3>Sequência atual: <Span colorAtual={colorAtual}>{atual}</Span></h3>
@@ -63,6 +64,7 @@ const CardHojeDiv = styled.div`
     align-items: center;
     box-sizing: border-box;
     padding: 0 12px;
+    animation: ${deslizarEsquerda} 1s 1;
     h2{
         font-size: 20px;
         color: #666666;
