@@ -22,7 +22,7 @@ export default function CardHoje({habitosHoje, getHabitoDia}) {
                     'Authorization': `Bearer ${userInfo.token}`
                 }
             })
-            checkPost.then(()=>{getHabitoDia()})
+            checkPost.then(()=>{setColorAtual(false);if(recorde===atual) setColorRecorde(true);getHabitoDia()})
             checkPost.then(()=>console.log('tudo errado'))
         }
         else{
@@ -38,11 +38,11 @@ export default function CardHoje({habitosHoje, getHabitoDia}) {
     }
 
     return (
-        <CardHojeDiv colorAtual={colorAtual} colorRecorde={colorRecorde} checked={habitosHoje.done}>
+        <CardHojeDiv checked={habitosHoje.done}>
             <div>
                 <h1>{habitosHoje.name}</h1>
-                <h2>Sequência atual: <span>{atual}</span></h2>
-                <h2>Seu recorde: <span>{}{recorde}</span></h2>
+                <h2>Sequência atual: <Span colorAtual={colorAtual}>{atual}</Span></h2>
+                <h2>Seu recorde: <Span2 colorRecorde={colorRecorde}>{}{recorde}</Span2></h2>
             </div>
             <button onClick={()=>handleClick(habitosHoje.id)}>
                 <img src={check} alt=""/>
@@ -80,4 +80,12 @@ const CardHojeDiv = styled.div`
             margin-top: 2px;
         }
     }
+`
+
+const Span = styled.span`
+    color: ${props=>props.colorAtual?'#8FC549':'#666666'}
+`
+
+const Span2 = styled.span`
+    color:${props=>props.colorRecorde?'#8FC549':'#666666'}
 `

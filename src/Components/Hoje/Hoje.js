@@ -3,6 +3,7 @@
 import axios from "axios";
 import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { diasSemana, urlHoje } from "../../Auxiliares/constants";
 import { contexto } from "../../Context/Context";
@@ -14,11 +15,17 @@ export default function Hoje() {
     const [diaHoje, setDiaHoje] = useState('')
     const [dia, setDia] = useState('')
     const [data, setData] = useState([])
+    const [color, setColor] = useState(false)
+    const navigate = useNavigate()
     useEffect(() => {
+            if(JSON.stringify(userInfo)==="{}"){
+                    console.log('oi')
+                    navigate("/")
+            }
             getDia()
             setVisibilidade(true);
             getHabitoDia()
-    }, [])
+    },[])
 
     function getDia() {
         const str = dayjs().format('DD/MM/YYYY')
@@ -41,8 +48,9 @@ export default function Hoje() {
         })
         console.log(quant,response.length)
         setPorcentagem(quant/response.length*100)
+        if((quant/response.length*100)>0) setColor(true);else setColor(false)
     }
-
+    console.log(color)
     function getHabitoDia() {
         const habitosHojeGet = axios.get(urlHoje,
             {
@@ -51,15 +59,15 @@ export default function Hoje() {
                 }
             })
         
-        habitosHojeGet.then((response)=>{setHabitosHoje(response.data);porcentagemTarefas(response.data)})
+        habitosHojeGet.then((response)=>{setHabitosHoje(response.data); porcentagemTarefas(response.data)})
         
         habitosHojeGet.catch((response)=>console.log(response))
     }
 
     return (
         <HojeContainer>
-            <div><h1>{diaHoje}, {data[0]<10?0:''}{data[0]}/{data[1]<10?0:''}{data[1]}</h1><h2>{(porcentagem>0)?porcentagem+'% dos hábitos concluídos':'Nenhum hábito concluído ainda'}</h2></div>
-            {habitosHoje.map((h,idx)=><CardHoje getHabitoDia={getHabitoDia} habitosHoje={h}  idx={idx}/>)}
+            <div><h1>{diaHoje}, {data[0]<10?0:''}{data[0]}/{data[1]<10?0:''}{data[1]}</h1><H2 color={color}>{(porcentagem>0)?porcentagem+'% dos hábitos concluídos':'Nenhum hábito concluído ainda'}</H2></div>
+            {habitosHoje.map((h,idx)=><CardHoje key={h.id} getHabitoDia={getHabitoDia} habitosHoje={h}  idx={idx}/>)}
         </HojeContainer>
     )
 }
@@ -70,9 +78,7 @@ const HojeContainer = styled.div`
     padding: 20px 15px 120px;
     div {
         h2{
-            font-size: 18px;
-            color: #BABABA;
-            margin-top: 3px;
+
         }
     }
     h1 {
@@ -99,3 +105,9 @@ const HojeContainer = styled.div`
         color: #666666;
     }
 `;
+
+const H2 = styled.h2`
+    font-size: 18px;
+    color: ${props=>props.color?'#8FC549':'#BABABA'};
+    margin-top: 3px;
+`
