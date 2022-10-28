@@ -10,6 +10,7 @@ import { contexto } from "../../Context/Context";
 import Swal from "sweetalert2";
 import { deslizarCima, tremerZoom } from "../../Auxiliares/animations";
 
+let tempoMs;
 
 export default function Login() {
     const navigate = useNavigate()
@@ -17,7 +18,8 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
     const {setUserInfo,userInfo}=useContext(contexto)
-    const {setVisibilidade, permanecerConectado, setPermanecerConectado} = useContext(contexto)
+    const { setVisibilidade, permanecerConectado, setPermanecerConectado} = useContext(contexto)
+    tempoMs = 400
     
     useEffect(()=>{
         setVisibilidade(false)
@@ -83,7 +85,7 @@ export default function Login() {
     )
 }
 
-let tempoMs = 400;
+
 function tempo() {
     tempoMs+=50
     return tempoMs+'ms'

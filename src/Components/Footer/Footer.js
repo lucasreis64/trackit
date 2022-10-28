@@ -4,6 +4,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { useContext } from "react";
 import { contexto } from "../../Context/Context";
 import { Link } from "react-router-dom";
+import { opacidade } from "../../Auxiliares/animations";
 
 
 export default function Footer() {
@@ -37,6 +38,7 @@ const FooterContainer=styled.div`
     box-sizing: border-box;
     background-color: white;
     z-index: 1;
+    animation: ${opacidade} 1s;
     p{
         color: #52B6FF;
         font-size: 18px;

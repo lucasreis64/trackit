@@ -6,7 +6,7 @@ import styled from "styled-components"
 import { urlHabitos, urlHoje } from "../../Auxiliares/constants"
 import { contexto } from "../../Context/Context"
 import {loadingCards} from "../../Auxiliares/constants"
-import { loading } from "../../Auxiliares/animations"
+import { loading, opacidade } from "../../Auxiliares/animations"
 import CardHabito from "./CardHabito"
 import NovoHabito from "./NovoHabito"
 
@@ -81,6 +81,7 @@ export default function Habitos () {
 const HabitosContainer=styled.div`
        background: #E5E5E5;
        padding: 20px 15px 120px;
+       animation: ${opacidade} 1s;
        div{
               display: flex;
               justify-content: space-between;

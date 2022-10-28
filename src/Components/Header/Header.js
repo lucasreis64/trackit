@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { contexto } from "../../Context/Context";
 import { useNavigate } from "react-router-dom";
 import exit from "../../img/exit.png"
+import { opacidade } from "../../Auxiliares/animations";
 
 export default function Header() {
     const {visibilidade,userInfo, setUserInfo} = useContext(contexto)
@@ -40,6 +41,7 @@ const HeaderContainer = styled.div`
     background-color: #126BA5;
     font-size: 39px;
     z-index: 1;
+    animation: ${opacidade} 1s;
     img{
         border-radius: 50%;
         

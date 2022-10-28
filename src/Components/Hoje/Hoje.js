@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { deslizarEsquerda } from "../../Auxiliares/animations";
+import { deslizarEsquerda, opacidade } from "../../Auxiliares/animations";
 import { diasSemana, loadingCards, urlHoje } from "../../Auxiliares/constants";
 import { contexto } from "../../Context/Context";
 import { CardHabitoLoading } from "../Habitos/Habitos";
@@ -19,13 +19,6 @@ export default function Hoje() {
     const [data, setData] = useState([])
     const [color, setColor] = useState(false)
     const navigate = useNavigate()
-    const [tempoMs, setTempoMs] = useState(200)
-    
-    function tempo() {
-        let addTempo= tempoMs+200
-        setTempoMs(addTempo)
-        return addTempo+'ms'
-    }
 
     useEffect(() => {
             if(JSON.stringify(userInfo)==="{}"){
@@ -77,7 +70,7 @@ export default function Hoje() {
         <HojeContainer habitosHoje={habitosHoje}>
             <div><h1>{diaHoje}, {data[0]<10?0:''}{data[0]}/{data[1]<10?0:''}{data[1]}</h1><H2 color={color}>{habitosHoje?(porcentagem>0)?parseInt(porcentagem)+'% dos hábitos concluídos':'Nenhum hábito concluído ainda':'Carregando...'}</H2></div>
             {habitosHoje?
-                habitosHoje.map((h,idx)=><CardHoje tempo={tempo} key={h.id} getHabitoDia={getHabitoDia} habitosHoje={h}  idx={idx}/>)
+                habitosHoje.map((h,idx)=><CardHoje key={h.id} getHabitoDia={getHabitoDia} habitosHoje={h}  idx={idx}/>)
                                                                     :
                 loadingCards.map((l, idx)=><CardHojeLoading key={idx}><div/></CardHojeLoading>)
             }
@@ -88,6 +81,7 @@ export default function Hoje() {
 const HojeContainer = styled.div`
     background: #e5e5e5;
     padding: 20px 15px 120px;
+    animation: ${opacidade} 1s;
     h1 {
         font-size: 23px;
         color: #126ba5;

@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { Calendar } from "react-calendar";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { opacidade } from "../../Auxiliares/animations";
 import { contexto } from "../../Context/Context";
 
 export default function Historico() {
@@ -29,6 +30,7 @@ export default function Historico() {
 const HistoricoContainer = styled.div`
     background: #e5e5e5;
     padding: 20px 15px 120px;
+    animation: ${opacidade} 1s;
     h1 {
         font-size: 23px;
         color: #126ba5;

@@ -6,6 +6,11 @@ import {keyframes} from "styled-components";
     to{opacity:1; transform: translateX(-0px)}
     `
 
+    export const opacidade=keyframes`
+    0%{opacity:0}
+    100%{opacity:1}
+    `
+
     export const variarQuatroVezes= keyframes`
     0% {
         transform: translateY(-20%);

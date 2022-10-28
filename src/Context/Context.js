@@ -11,7 +11,7 @@ export const Context = (props) => {
     const [permanecerConectado, setPermanecerConectado] = useState(false)
 
     return (
-        <contexto.Provider  value={{userInfo, setUserInfo, porcentagem, setPorcentagem, visibilidade, setVisibilidade, porcentagemT, setPorcentagemT, respons, setRespons, permanecerConectado, setPermanecerConectado}}>
+        <contexto.Provider  value={{ userInfo, setUserInfo, porcentagem, setPorcentagem, visibilidade, setVisibilidade, porcentagemT, setPorcentagemT, respons, setRespons, permanecerConectado, setPermanecerConectado}}>
             {props.children}
         </contexto.Provider>
     )
