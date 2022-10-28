@@ -8,7 +8,7 @@ import axios from "axios";
 import { carregamento } from "../../Auxiliares/constants";
 import { contexto } from "../../Context/Context";
 import Swal from "sweetalert2";
-import { deslizarEsquerda } from "../../Auxiliares/animations";
+import { deslizarCima, tremerZoom } from "../../Auxiliares/animations";
 
 
 export default function Login() {
@@ -83,6 +83,11 @@ export default function Login() {
     )
 }
 
+let tempoMs = 400;
+function tempo() {
+    tempoMs+=50
+    return tempoMs+'ms'
+}
 
 export const LoginContainer = styled.div`
     display: flex;
@@ -96,9 +101,11 @@ export const LoginContainer = styled.div`
     position: absolute;
     top: 0;
     width: 100%;
+    animation: ${deslizarCima} ${tempo};
     img{
         height: 28%;
         margin-bottom: 15%;
+        animation: ${deslizarCima} ${tempo}, ${tremerZoom} ${'500ms'} 1 ${tempo};;
     }
     form{
         display: flex;
@@ -113,15 +120,18 @@ export const LoginContainer = styled.div`
         border: 1px solid #D5D5D5;
         border-radius: 5px;
         box-sizing: border-box;
+        animation: ${deslizarCima} ${tempo};
     }
     input.check{
         width: 15px;
         height: 15px;
         margin-left: 10px;
+        animation: ${deslizarCima} ${tempo};
     }
     label{
         font-size: 15px;
         color: gray;
+        animation: ${deslizarCima} ${tempo};
     }
     input::placeholder{
         font-weight: 400;
@@ -140,6 +150,7 @@ export const LoginContainer = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+        animation: ${deslizarCima} ${tempo};
     }
     p{
         margin-top: 25px;
@@ -149,5 +160,6 @@ export const LoginContainer = styled.div`
         font-size: 14px;
         text-decoration-line: underline;
         color: #52B6FF;
+        animation: ${deslizarCima} ${tempo};
     }
 `
