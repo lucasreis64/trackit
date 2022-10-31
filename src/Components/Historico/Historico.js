@@ -44,8 +44,7 @@ const HistoricoContainer = styled.div`
     }
     .react-calendar {
         border-radius: 4px;
-        width: 350px;
-        max-width: 100%;
+        width: 100%;
         background: white;
         font: inherit;
         line-height: 1.125em;

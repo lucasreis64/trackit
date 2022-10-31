@@ -17,7 +17,6 @@ function App() {
             <GlobalStyle />
             
             <SmartPhoneContainer>
-            
                 <BrowserRouter>
                     <Footer/>
                     <Header/>
@@ -41,15 +40,23 @@ const Screen = styled.div`
     background-color: black;
     width: 100vw;
     height: 100vh;
+    box-sizing: border-box;
 `
 
 const SmartPhoneContainer = styled.div`
     width: 500px;
-    height: 1000px;
+    height: 100vh;
     background-color: #e5e5e5;
     padding: 70px 0px;
     box-sizing: border-box;
-    position: relative;
+    overflow: scroll;
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+    display: none;
+    }
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
     @media (max-width: 600px) {
         width: 100%;
         height: 100vh;
