@@ -2,6 +2,7 @@ import axios from "axios"
 import { useContext, useState } from "react"
 import styled from "styled-components"
 import Swal from "sweetalert2"
+import { rolarCair, variarQuatroVezes, variarSeisVezes } from "../../Auxiliares/animations"
 import {carregamento, dias, urlHabitos} from "../../Auxiliares/constants"
 import { contexto } from "../../Context/Context"
 import Dia from "./Dia"
@@ -10,6 +11,7 @@ export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHa
     const [atualizar, setAtualizar] = useState(false)
     const {userInfo} = useContext(contexto)
     const [carregando, setCarregando] = useState(false)
+    const [fechando, setFechando] = useState(false)
     
     function postHabito () {
 
@@ -51,7 +53,7 @@ export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHa
     }
 
     return (
-        <NovoHabitoDiv>
+        <NovoHabitoDiv fechando={fechando}>
             {carregando?
             <form onSubmit={handleSubmit}>
                 <input disabled placeholder="nome do hábito" value={nomeHabito} onChange={(e)=>setNomeHabito(e.target.value)} required/>
@@ -64,7 +66,7 @@ export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHa
                 <input placeholder="nome do hábito" maxLength={28} value={nomeHabito} onChange={(e)=>setNomeHabito(e.target.value)} required/>
                 <div className="dias">{dias.map((d,idx)=><Dia setAtualizar={setAtualizar} setDiasSelecionados={setDiasSelecionados} atualizar={atualizar}
                 key={idx} dias={dias} diasSelecionados={diasSelecionados} idx={idx}>{d}</Dia>)}</div>
-                <div className="botoes"><p onClick={()=>setAddHabito(false)}>Cancelar</p><button>Salvar</button></div>
+                <div className="botoes"><p onClick={()=><>{setFechando(true)}{setTimeout(()=>{setAddHabito(false);setFechando(false)},800)}</>}>Cancelar</p><button>Salvar</button></div>
             </form>
             }
         </NovoHabitoDiv>
@@ -83,6 +85,7 @@ const NovoHabitoDiv=styled.div`
     font-size: 19.976px;
     color: #666666;
     position: relative;
+    animation: ${props=>props.fechando?rolarCair:variarQuatroVezes} 800ms;
     .dias{
         display: flex;
         gap:2px;
