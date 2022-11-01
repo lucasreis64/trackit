@@ -9,7 +9,7 @@ import Dia from "./Dia"
 
 export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHabito, diasSelecionados,setDiasSelecionados}) {
     const [atualizar, setAtualizar] = useState(false)
-    const {userInfo} = useContext(contexto)
+    const {userInfo, noturno} = useContext(contexto)
     const [carregando, setCarregando] = useState(false)
     const [fechando, setFechando] = useState(false)
     
@@ -53,7 +53,7 @@ export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHa
     }
 
     return (
-        <NovoHabitoDiv fechando={fechando}>
+        <NovoHabitoDiv noturno={noturno} fechando={fechando}>
             {carregando?
             <form onSubmit={handleSubmit}>
                 <input disabled placeholder="nome do hábito" value={nomeHabito} onChange={(e)=>setNomeHabito(e.target.value)} required/>
@@ -76,7 +76,7 @@ export default function NovoHabito({habitos, setAddHabito, nomeHabito, setNomeHa
 const NovoHabitoDiv=styled.div`
     margin-top: 20px;
     width: 100%;
-    background: #FFFFFF;
+    background: ${props=>props.noturno?'#494747':'white'};
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -112,6 +112,9 @@ const NovoHabitoDiv=styled.div`
         justify-content: end;
         align-items: center;
         gap: 20px;
+    }
+    .botoes:hover,.dias:hover{
+        cursor: pointer;
     }
     button{
         width: 84px !important;

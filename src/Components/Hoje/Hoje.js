@@ -72,14 +72,13 @@ export default function Hoje() {
             {habitosHoje?
                 habitosHoje.map((h,idx)=><CardHoje key={h.id} getHabitoDia={getHabitoDia} habitosHoje={h}  idx={idx}/>)
                                                                     :
-                loadingCards.map((l, idx)=><CardHojeLoading key={idx}><div/></CardHojeLoading>)
+                loadingCards.map((idx)=><CardHojeLoading key={idx}><div/></CardHojeLoading>)
             }
         </HojeContainer>
     )
 }
 
 const HojeContainer = styled.div`
-    background: #e5e5e5;
     padding: 20px 15px 120px;
     animation: ${opacidade} 1s;
     h1 {

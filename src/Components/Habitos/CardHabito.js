@@ -8,7 +8,7 @@ import { contexto } from "../../Context/Context"
 
 
 export default function CardHabito({habitos, getHabitos}) {
-    const {userInfo} = useContext(contexto)
+    const {userInfo, noturno} = useContext(contexto)
     function deletarHabito (id) {
         Swal.fire({
             title: 'Você tem certeza?',
@@ -53,7 +53,7 @@ export default function CardHabito({habitos, getHabitos}) {
     }
 
     return (
-        <CardHabitoDiv>
+        <CardHabitoDiv noturno={noturno}>
             <h2>{habitos.name}</h2>
             <div className="dias">{dias.map((d,idx)=><Dias key={idx} dias={habitos.days} idx={idx}>{d}</Dias>)}</div>
             <img onClick={()=>deletarHabito(habitos.id)} alt="" src={lixeira}/>
@@ -64,7 +64,7 @@ export default function CardHabito({habitos, getHabitos}) {
 export const CardHabitoDiv=styled.div`
     width: 100%;
     height: 91px;
-    background: #FFFFFF;
+    background-color: ${props=> props.noturno?'#A9A9A9':'white'}!important;
     border-radius: 5px;
     display: flex;
     flex-direction: column;

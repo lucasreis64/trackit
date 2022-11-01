@@ -79,7 +79,6 @@ export default function Habitos () {
 }
 
 const HabitosContainer=styled.div`
-       background: #E5E5E5;
        padding: 20px 15px 120px;
        animation: ${opacidade} 1s;
        div{

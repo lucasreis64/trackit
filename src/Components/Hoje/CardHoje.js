@@ -7,7 +7,7 @@ import { contexto } from "../../Context/Context"
 import check from "../../img/check.png"
 
 export default function CardHoje({habitosHoje, getHabitoDia, tempo}) {
-    const {userInfo} = useContext(contexto)
+    const {userInfo, noturno} = useContext(contexto)
     const [colorRecorde, setColorRecorde] = useState(false)
     const [colorAtual, setColorAtual] = useState(false)
     const atual = habitosHoje.currentSequence
@@ -39,7 +39,7 @@ export default function CardHoje({habitosHoje, getHabitoDia, tempo}) {
     }
 
     return (
-        <CardHojeDiv tempo={tempo} checked={habitosHoje.done}>
+        <CardHojeDiv noturno={noturno} tempo={tempo} checked={habitosHoje.done}>
             <div>
                 <h2>{habitosHoje.name}</h2>
                 <h3>Sequência atual: <Span colorAtual={colorAtual}>{atual}</Span></h3>
@@ -59,7 +59,7 @@ const CardHojeDiv = styled.div`
     width: 100%;
     height: 94px;
     margin-top: 20px;
-    background-color: white !important;
+    background-color: ${props=> props.noturno?'#A9A9A9':'white'}!important;
     align-items: center;
     box-sizing: border-box;
     padding: 0 12px;

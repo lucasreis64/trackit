@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import GlobalStyle from "../Auxiliares/GlobalStyles";
 import Habitos from "./Habitos/Habitos";
 import Hoje from "./Hoje/Hoje";
@@ -10,13 +11,13 @@ import Footer from "./Footer/Footer";
 import Header from "./Header/Header";
 import diaNoite from "../img/dia-e-noite.png"
 import diaNoiteWhite from "../img/dia-e-noite-white.png"
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { contexto } from "../Context/Context";
 import { opacidade } from "../Auxiliares/animations";
 
 function App() {
-    const {noturno, setNoturno} = useContext(contexto)
-    const [entrou, setEntrou] = useState(false)
+    const {noturno, setNoturno, entrou, setEntrou} = useContext(contexto)
+    
     useEffect(()=>setEntrou(true),[])
     return (
         <Screen entrou={entrou}>
@@ -43,6 +44,18 @@ function App() {
     );
 }
 
+const opacidadeCopy = keyframes`
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 4;
+    }
+    100%{
+        opacity: 1;
+    }
+`
+
 const Screen = styled.div`
     display: flex;
     justify-content: center;
@@ -52,13 +65,13 @@ const Screen = styled.div`
     height: 100vh;
     box-sizing: border-box;
     .dia-noite{
-        position: absolute;
+        position: fixed;
         top:12.5px;
         left: 47%;
         z-index: 2;
         width: 45px;
         height: 45px;
-        animation: ${opacidade} 3000ms;
+        animation: ${props=>props.entrou?opacidade:opacidadeCopy} 4000ms;
     }
 `
 

@@ -18,18 +18,19 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
     const {setUserInfo,userInfo}=useContext(contexto)
-    const { setVisibilidade, permanecerConectado, setPermanecerConectado, noturno} = useContext(contexto)
+    const { setVisibilidade, permanecerConectado, setPermanecerConectado, noturno, setEntrou, entrou } = useContext(contexto)
     tempoMs = 400
     
     useEffect(()=>{
         setVisibilidade(false)
         const userInfoCopy=JSON.parse(localStorage.getItem('userInfo'))
-        
+        setEntrou(!entrou)
         if(userInfoCopy!==null){
             setUserInfo(userInfoCopy)
             navigate("/hoje")
         }
-    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
     function handleSubmit (event) {
         event.preventDefault();
         setLoading(true)

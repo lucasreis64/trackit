@@ -30,6 +30,9 @@ footer, header, hgroup, menu, nav, section {
 a{
 	text-decoration: none;
 }
+button:hover,img:hover{
+	cursor: pointer
+}
 body {
 	line-height: 1;
 	font-family: 'Lexend Deca' !important;

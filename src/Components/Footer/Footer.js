@@ -8,12 +8,12 @@ import { opacidade } from "../../Auxiliares/animations";
 
 
 export default function Footer() {
-    const {porcentagem, visibilidade} = useContext(contexto)
+    const {porcentagem, visibilidade, noturno} = useContext(contexto)
 
     return (
         <>
             {visibilidade?
-                <FooterContainer>
+                <FooterContainer noturno={noturno}>
                     <Link to="/habitos"><p>Hábitos</p></Link>
                     <Link to="/hoje"><div><Progresso backgroundPadding={6} value={porcentagem} background={true} text={`Hoje`} styles={buildStyles(stylesProgresso)}/></div></Link>
                     <Link to="/historico"><p>Histórico</p></Link>
@@ -39,6 +39,7 @@ const FooterContainer=styled.div`
     background-color: white;
     z-index: 1;
     animation: ${opacidade} 1s;
+    background-color: ${props=>props.noturno?'black':'white'};
     p{
         color: #52B6FF;
         font-size: 18px;
@@ -49,7 +50,7 @@ const FooterContainer=styled.div`
         margin-bottom: 40px;
     }
     .CircularProgressbar-path {
-        stroke: white !important;
+        stroke: ${props=>props.noturno?'black':'white'} !important;
     }
 `
 const Progresso=styled(CircularProgressbar)`

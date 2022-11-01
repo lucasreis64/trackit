@@ -7,7 +7,7 @@ import { opacidade } from "../../Auxiliares/animations";
 import { contexto } from "../../Context/Context";
 
 export default function Historico() {
-    const { setVisibilidade, userInfo } = useContext(contexto);
+    const { setVisibilidade, userInfo, noturno } = useContext(contexto);
     const navigate = useNavigate();
     const [value, onChange] = useState(new Date());
 
@@ -19,7 +19,7 @@ export default function Historico() {
         }
     }, []);
     return (
-        <HistoricoContainer>
+        <HistoricoContainer noturno={noturno}>
             <h1>Histórico</h1>
             <h2>Em breve você poderá ver o histórico dos seus hábitos aqui!</h2>
             <Calendar onChange={onChange} value={value} />
@@ -28,7 +28,6 @@ export default function Historico() {
 }
 
 const HistoricoContainer = styled.div`
-    background: #e5e5e5;
     padding: 20px 15px 120px;
     animation: ${opacidade} 1s;
     h1 {
@@ -45,7 +44,7 @@ const HistoricoContainer = styled.div`
     .react-calendar {
         border-radius: 4px;
         width: 100%;
-        background: white;
+        background-color: ${props=> props.noturno?'#A9A9A9':'white'}!important;
         font: inherit;
         line-height: 1.125em;
         border: 0;
