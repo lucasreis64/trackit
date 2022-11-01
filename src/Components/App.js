@@ -60,14 +60,14 @@ const Screen = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: black;
+    background-image: linear-gradient(to right, violet , blue);
     width: 100vw;
     height: 100vh;
     box-sizing: border-box;
     .dia-noite{
         position: fixed;
         top:12.5px;
-        left: 44%;
+        left: 46%;
         z-index: 2;
         width: 45px;
         height: 45px;
