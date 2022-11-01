@@ -42,8 +42,8 @@ export default function CardHoje({habitosHoje, getHabitoDia, tempo}) {
         <CardHojeDiv noturno={noturno} tempo={tempo} checked={habitosHoje.done}>
             <div>
                 <h2>{habitosHoje.name}</h2>
-                <h3>Sequência atual: <Span colorAtual={colorAtual}>{atual}</Span></h3>
-                <h3>Seu recorde: <Span2 colorRecorde={colorRecorde}>{}{recorde}</Span2></h3>
+                <h3>Sequência atual: <Span noturno={noturno} colorAtual={colorAtual}>{atual}</Span></h3>
+                <h3>Seu recorde: <Span2 noturno={noturno} colorRecorde={colorRecorde}>{}{recorde}</Span2></h3>
             </div>
             <button onClick={()=>handleClick(habitosHoje.id)}>
                 <img src={check} alt=""/>
@@ -66,12 +66,12 @@ const CardHojeDiv = styled.div`
     animation: ${deslizarEsquerda} 1s 1;
     h2{
         font-size: 20px;
-        color: #666666;
+        color:  ${props=>props.noturno?'black':'#666666'};
         margin-bottom: 10px;
     }
     h3{
         font-size: 13px;
-        color: #666666;
+        color:  ${props=>props.noturno?'black':'#666666'};
         margin-bottom:3px;
     }
     button{
@@ -87,9 +87,13 @@ const CardHojeDiv = styled.div`
 `
 
 const Span = styled.span`
-    color: ${props=>props.colorAtual?'#8FC549':'#666666'}
+    color: ${props=>props.colorAtual?   props=>props.noturno?'green':'#8FC549'
+                                                        :
+                                        props=>props.noturno?'black':'#666666'}
 `
 
 const Span2 = styled.span`
-    color:${props=>props.colorRecorde?'#8FC549':'#666666'}
+    color:${props=>props.colorRecorde?props=>props.noturno?'green':'#8FC549'
+                                                        :
+                                            props=>props.noturno?'black':'#666666'}
 `
