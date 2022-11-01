@@ -66,8 +66,8 @@ const Screen = styled.div`
     box-sizing: border-box;
     .dia-noite{
         position: fixed;
-        top:12.5px;
-        left: 46%;
+        top:20px;
+        left: calc(50% - 30px);
         z-index: 2;
         width: 45px;
         height: 45px;
