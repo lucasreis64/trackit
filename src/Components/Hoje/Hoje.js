@@ -12,7 +12,7 @@ import { CardHabitoLoading } from "../Habitos/Habitos";
 import CardHoje from "./CardHoje";
 
 export default function Hoje() {
-    const { setVisibilidade, userInfo, porcentagem, setPorcentagem} = useContext(contexto)
+    const { setVisibilidade, userInfo, porcentagem, setPorcentagem, noturno} = useContext(contexto)
     const [habitosHoje, setHabitosHoje] = useState(null)
     const [diaHoje, setDiaHoje] = useState('')
     const [dia, setDia] = useState('')
@@ -72,7 +72,7 @@ export default function Hoje() {
             {habitosHoje?
                 habitosHoje.map((h,idx)=><CardHoje key={h.id} getHabitoDia={getHabitoDia} habitosHoje={h}  idx={idx}/>)
                                                                     :
-                loadingCards.map((idx)=><CardHojeLoading key={idx}><div/></CardHojeLoading>)
+                loadingCards.map((l,idx)=><CardHojeLoading noturno = {noturno} key={idx}><div/></CardHojeLoading>)
             }
         </HojeContainer>
     )
@@ -117,6 +117,7 @@ const CardHojeLoading = styled(CardHabitoLoading)`
     width: 100%;
     height: 94px;
     margin-top: 20px;
+    background-color: ${props=>props.noturno?'darkgrey':'whitesmoke'} !important;
     div{
         width: 100%;
         height: 94px;

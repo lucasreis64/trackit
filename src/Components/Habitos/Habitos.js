@@ -11,7 +11,7 @@ import CardHabito from "./CardHabito"
 import NovoHabito from "./NovoHabito"
 
 export default function Habitos () {
-       const {setVisibilidade, userInfo, setPorcentagem}=useContext(contexto)
+       const {setVisibilidade, userInfo, setPorcentagem, noturno}=useContext(contexto)
        const [habitos, setHabitos] = useState(null)
        const [addHabito, setAddHabito] = useState(false)
        const [nomeHabito, setNomeHabito] = useState('')
@@ -71,7 +71,7 @@ export default function Habitos () {
                                                                              :
                                    <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
                                    :
-                                   loadingCards.map((l)=><CardHabitoLoading><div/></CardHabitoLoading>)
+                                   loadingCards.map((l, idx)=><CardHabitoLoading key = {idx} noturno={noturno}><div/></CardHabitoLoading>)
                             }
                      </div>
               </HabitosContainer>
@@ -114,7 +114,7 @@ export const CardHabitoLoading = styled.div`
        width: 100%;
        height: 91px;
        overflow: hidden;
-       background-color: whitesmoke;
+       background-color: ${props=>props.noturno?'darkgrey':'whitesmoke'};
 
        div{
        width: 100%;
