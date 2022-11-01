@@ -67,7 +67,7 @@ const Screen = styled.div`
     .dia-noite{
         position: fixed;
         top:12.5px;
-        left: 47%;
+        left: 44%;
         z-index: 2;
         width: 45px;
         height: 45px;

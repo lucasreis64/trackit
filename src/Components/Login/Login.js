@@ -106,7 +106,7 @@ export const LoginContainer = styled.div`
     width: 100%;
     animation: ${deslizarCima} ${tempo};
     img{
-        height: 28%;
+        height: 170px;
         margin-bottom: 15%;
         animation: ${deslizarCima} ${tempo}, ${tremerZoom} ${'500ms'} 1 ${tempo};;
     }
