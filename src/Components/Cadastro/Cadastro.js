@@ -2,7 +2,7 @@ import { LoginContainer } from "../Login/Login"
 import { useContext, useEffect, useState } from "react";
 import { urlSignUp } from "../../Auxiliares/constants";
 import { useNavigate, Link } from "react-router-dom";
-import logo from "../../img/TrackIt-Logo.jpg"
+import logo from "../../img/TrackIt-Logo.png"
 import axios from "axios";
 import { carregamento } from "../../Auxiliares/constants";
 import { contexto } from "../../Context/Context";

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { urlLogin } from "../../Auxiliares/constants";
 import { useNavigate, Link } from "react-router-dom";
-import logo from "../../img/TrackIt-Logo.jpg"
+import logo from "../../img/TrackIt-Logo.png"
 import axios from "axios";
 import { carregamento } from "../../Auxiliares/constants";
 import { contexto } from "../../Context/Context";
@@ -18,7 +18,7 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
     const {setUserInfo,userInfo}=useContext(contexto)
-    const { setVisibilidade, permanecerConectado, setPermanecerConectado} = useContext(contexto)
+    const { setVisibilidade, permanecerConectado, setPermanecerConectado, noturno} = useContext(contexto)
     tempoMs = 400
     
     useEffect(()=>{
@@ -58,7 +58,7 @@ export default function Login() {
     }
 
     return (
-        <LoginContainer>
+        <LoginContainer noturno={noturno}>
             <img src={logo} alt= ""/>
             {!loading?
             <>
@@ -98,7 +98,7 @@ export const LoginContainer = styled.div`
     justify-content: start;
     padding: 30% 10%;
     box-sizing: border-box;
-    background-color: white;
+    background-color: ${props=> props.noturno?'#1C1C1C':'white'};
     height: 100%;
     position: absolute;
     top: 0;
