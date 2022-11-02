@@ -42,6 +42,11 @@ const HeaderContainer = styled.div`
     font-size: 39px;
     z-index: 1;
     animation: ${opacidade} 1s;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    @media (max-width: 600px) {
+        bottom:0%;
+    }
     img{
         border-radius: 50%;
         

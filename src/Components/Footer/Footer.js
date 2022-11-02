@@ -28,7 +28,7 @@ export default function Footer() {
 
 const FooterContainer=styled.div`
     position: fixed;
-    bottom:0;
+    bottom:10%;
     width: inherit;
     height: 70px;
     display: flex;
@@ -40,6 +40,11 @@ const FooterContainer=styled.div`
     z-index: 1;
     animation: ${opacidade} 1s;
     background-color: ${props=>props.noturno?'black':'white'};
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    @media (max-width: 600px) {
+        bottom:0%;
+    }
     p{
         color: #52B6FF;
         font-size: 18px;
@@ -52,6 +57,7 @@ const FooterContainer=styled.div`
     .CircularProgressbar-path {
         stroke: ${props=>props.noturno?'black':'white'} !important;
     }
+    
 `
 const Progresso=styled(CircularProgressbar)`
 `

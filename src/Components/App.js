@@ -64,10 +64,11 @@ const Screen = styled.div`
     width: 100vw;
     height: 100vh;
     box-sizing: border-box;
+
     .dia-noite{
         position: fixed;
-        top:20px;
-        left: calc(50% - 30px);
+        top: 12.5px;
+        left: calc(50% - 35px);
         z-index: 2;
         width: 45px;
         height: 45px;
@@ -77,12 +78,13 @@ const Screen = styled.div`
 
 const SmartPhoneContainer = styled.div`
     width: 500px;
-    height: 100vh;
+    height: 80vh;
     background-color: ${props=> props.noturno?'#1C1C1C':'#e5e5e5'};
     padding: 70px 0px;
     box-sizing: border-box;
     overflow: scroll;
     position: relative;
+    border-radius: 30px;
     /* Hide scrollbar for Chrome, Safari and Opera */
     &::-webkit-scrollbar {
     display: none;
@@ -93,6 +95,7 @@ const SmartPhoneContainer = styled.div`
     @media (max-width: 600px) {
         width: 100%;
         height: 100vh;
+        border-radius: 0px;
     }
 `
 
