@@ -31,7 +31,6 @@ const HeaderContainer = styled.div`
     height: 70px;
     box-sizing: border-box;
     position: fixed;
-    top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -42,10 +41,18 @@ const HeaderContainer = styled.div`
     font-size: 39px;
     z-index: 1;
     animation: ${opacidade} 1s;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    top: 10%;
+    div{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
     @media (max-width: 600px) {
-        bottom:0%;
+        top:0%;
+        border-radius: 0;
     }
     img{
         border-radius: 50%;

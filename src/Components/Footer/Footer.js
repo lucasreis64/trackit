@@ -44,6 +44,7 @@ const FooterContainer=styled.div`
     border-bottom-right-radius: 30px;
     @media (max-width: 600px) {
         bottom:0%;
+        border-radius: 0;
     }
     p{
         color: #52B6FF;
