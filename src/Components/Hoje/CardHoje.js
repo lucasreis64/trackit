@@ -3,6 +3,7 @@ import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { deslizarEsquerda } from "../../Auxiliares/animations"
+import { carregamento } from "../../Auxiliares/constants"
 import { contexto } from "../../Context/Context"
 import check from "../../img/check.png"
 
@@ -10,6 +11,7 @@ export default function CardHoje({habitosHoje, getHabitoDia, tempo}) {
     const {userInfo, noturno} = useContext(contexto)
     const [colorRecorde, setColorRecorde] = useState(false)
     const [colorAtual, setColorAtual] = useState(false)
+    const [loading, setLoading] = useState(false)
     const atual = habitosHoje.currentSequence
     const recorde = habitosHoje.highestSequence
     useEffect(()=>{
@@ -24,7 +26,7 @@ export default function CardHoje({habitosHoje, getHabitoDia, tempo}) {
                     'Authorization': `Bearer ${userInfo.token}`
                 }
             })
-            checkPost.then(()=>{setColorAtual(false);if(recorde===atual) setColorRecorde(true);getHabitoDia()})
+            checkPost.then(()=>{setColorAtual(false); if(recorde===atual) setColorRecorde(true); setTimeout(()=>setLoading(false),800) ; getHabitoDia()})
             checkPost.then(()=>console.log('tudo errado'))
         }
         else{
@@ -34,7 +36,7 @@ export default function CardHoje({habitosHoje, getHabitoDia, tempo}) {
                     'Authorization': `Bearer ${userInfo.token}`
                 }
             })
-            checkPost.then(()=>{setColorAtual(true);if(recorde===atual) setColorRecorde(true);getHabitoDia()})
+            checkPost.then(()=>{setColorAtual(true);if(recorde===atual); setColorRecorde(true); setTimeout(()=>setLoading(false),800); getHabitoDia()})
         }
     }
 
@@ -45,9 +47,15 @@ export default function CardHoje({habitosHoje, getHabitoDia, tempo}) {
                 <h3>Sequência atual: <Span noturno={noturno} colorAtual={colorAtual}>{atual}</Span></h3>
                 <h3>Seu recorde: <Span2 noturno={noturno} colorRecorde={colorRecorde}>{}{recorde}</Span2></h3>
             </div>
-            <button onClick={()=>handleClick(habitosHoje.id)}>
-                <img src={check} alt=""/>
-            </button>
+            {loading?
+                <button disabled>
+                    {carregamento}
+                </button>
+                :
+                <button onClick={()=>{handleClick(habitosHoje.id);setLoading(true)}}>
+                    <img src={check} alt=""/>
+                </button>
+            }
         </CardHojeDiv>
     )
 }
@@ -75,13 +83,18 @@ const CardHojeDiv = styled.div`
         margin-bottom:3px;
     }
     button{
+        display: flex;
         width: 69px!important;
         height: 69px!important;
         justify-content: center;
         align-items: center;
         background: ${props=>props.checked?'#8FC549':'#EBEBEB'} !important;
+        box-sizing: border-box;
         img{
             margin-top: 2px;
+        }
+        div{
+            width: 65px;
         }
     }
 `
