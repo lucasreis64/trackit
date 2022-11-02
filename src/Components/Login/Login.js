@@ -66,7 +66,7 @@ export default function Login() {
                 <form action="/hoje" onSubmit={handleSubmit}>
                     <input name="email" type="email" placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)} required/>
                     <input name="password" type="password" placeholder="senha" value={password} onChange={(e)=>setPassword(e.target.value)} required/>
-                    <button>Cadastrar</button>
+                    <button>Entrar</button>
                     <label>Permanecer conectado?<input className='check' type="checkbox" checked={permanecerConectado} onChange={()=>setPermanecerConectado(!permanecerConectado)}/></label>
                 </form>
                 <Link to="/cadastro"><p>Já tem uma conta? Faça login!</p></Link>
