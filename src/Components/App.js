@@ -77,8 +77,8 @@ const Screen = styled.div`
 `
 
 const SmartPhoneContainer = styled.div`
-    width: 500px;
-    height: 80vh;
+    width: 400px;
+    height: 85vh;
     background-color: ${props=> props.noturno?'#1C1C1C':'#e5e5e5'};
     padding: 70px 0px;
     box-sizing: border-box;

@@ -43,7 +43,7 @@ const HeaderContainer = styled.div`
     animation: ${opacidade} 1s;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
-    top: 10%;
+    top: 7.5%;
     div{
         display: flex;
         justify-content: space-between;

@@ -28,7 +28,7 @@ export default function Footer() {
 
 const FooterContainer=styled.div`
     position: fixed;
-    bottom:10%;
+    bottom:7.5%;
     width: inherit;
     height: 70px;
     display: flex;
